@@ -15,55 +15,28 @@ if (hamburger) {
     });
 }
 
-// Contact Form Handling
+// Contact Form Handling - Using Formspree native form submission
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
-    contactForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        // Get form values
-        const name = contactForm.querySelector('input[name="name"]').value;
-        const email = contactForm.querySelector('input[name="email"]').value;
-        const message = contactForm.querySelector('textarea[name="message"]').value;
-
-        // Validate form
-        if (!name || !email || !message) {
-            alert('Please fill in all fields');
-            return;
-        }
+    contactForm.addEventListener('submit', function(e) {
+        // Let Formspree handle the submission naturally
+        // Just add basic client-side validation
+        
+        const name = this.querySelector('input[name="name"]').value;
+        const email = this.querySelector('input[name="email"]').value;
+        const message = this.querySelector('textarea[name="message"]').value;
 
         // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            alert('Please enter a valid email');
-            return;
+            e.preventDefault();
+            alert('Please enter a valid email address');
+            return false;
         }
 
-        // Send message using Formspree
-        try {
-            const response = await fetch('https://formspree.io/f/xljrepak', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    name: name,
-                    email: email,
-                    message: message
-                })
-            });
-
-            if (response.ok) {
-                alert('Thank you! Your message has been sent successfully.');
-                contactForm.reset();
-            } else {
-                alert('There was an error sending your message. Please try again.');
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Error sending message. Please try again.');
-        }
+        // If validation passes, Formspree handles the POST
+        // This allows the form to submit naturally to Formspree
     });
 }
 
