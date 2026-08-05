@@ -23,9 +23,9 @@ if (contactForm) {
         e.preventDefault();
 
         // Get form values
-        const name = contactForm.querySelector('input[placeholder="Your Name"]').value;
-        const email = contactForm.querySelector('input[placeholder="Your Email"]').value;
-        const message = contactForm.querySelector('textarea').value;
+        const name = contactForm.querySelector('input[name="name"]').value;
+        const email = contactForm.querySelector('input[name="email"]').value;
+        const message = contactForm.querySelector('textarea[name="message"]').value;
 
         // Validate form
         if (!name || !email || !message) {
@@ -40,7 +40,7 @@ if (contactForm) {
             return;
         }
 
-        // Send message using Formspree (no backend needed)
+        // Send message using Formspree
         try {
             const response = await fetch('https://formspree.io/f/xljrepak', {
                 method: 'POST',
