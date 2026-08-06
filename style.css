@@ -21,7 +21,7 @@ html {
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: #111;
+    color: var(--text-dark);
     line-height: 1.6;
     overflow-x: hidden;
 }
